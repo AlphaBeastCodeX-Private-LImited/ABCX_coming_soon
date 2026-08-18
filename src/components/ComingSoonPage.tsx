@@ -1,7 +1,8 @@
-import { useState } from 'react'
-import { CodeCatcherGame } from './CodeCatcherGame'
+import { lazy, Suspense, useState } from 'react'
 import { Footer } from './Footer'
 import { Logo } from './Logo'
+
+const CodeCatcherGame = lazy(() => import('./CodeCatcherGame').then(({ CodeCatcherGame }) => ({ default: CodeCatcherGame })))
 
 export function ComingSoonPage() {
   const [gameOpen, setGameOpen] = useState(false)
@@ -24,7 +25,7 @@ export function ComingSoonPage() {
       </section>
 
       <Footer />
-      {gameOpen && <CodeCatcherGame onClose={() => setGameOpen(false)} />}
+      {gameOpen && <Suspense fallback={<div className="game-overlay" role="status" aria-label="Loading Code Catcher" />}><CodeCatcherGame onClose={() => setGameOpen(false)} /></Suspense>}
     </main>
   )
 }
