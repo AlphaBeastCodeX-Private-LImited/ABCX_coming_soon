@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abcx.co.in/sitemap.xml
