@@ -8,7 +8,7 @@ export function Logo({ className = '' }: LogoProps) {
     <img
       className={className}
       src="/abcx-logo.png"
-      alt="AlphaBeastCodeX Private Limited logo"
+      alt="ABCX logo"
       draggable="false"
     />
   )
