@@ -6,13 +6,11 @@ const CodeCatcherGame = lazy(() => import('./CodeCatcherGame').then(({ CodeCatch
 
 export function ComingSoonPage() {
   const [gameOpen, setGameOpen] = useState(false)
-  const [visitorIp, setVisitorIp] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/.netlify/functions/ip')
-      .then((response) => response.ok ? response.json() : Promise.reject(response))
-      .then(({ ip }: { ip: string | null }) => setVisitorIp(ip))
-      .catch(() => setVisitorIp(null))
+    // Records the visit in Netlify's server-side function logs without
+    // exposing the visitor's address to the browser UI.
+    void fetch('/.netlify/functions/ip', { cache: 'no-store' }).catch(() => undefined)
   }, [])
 
   return (
@@ -30,7 +28,6 @@ export function ComingSoonPage() {
         <h1 id="coming-soon-heading">Coming Soon!</h1>
         <p className="mission">Building Intelligent Solutions for Tomorrow.</p>
         <p className="supporting">Something powerful is taking shape. Stay close — the reveal is on its way.</p>
-        {visitorIp && <p className="visitor-ip">Your IP address: <code>{visitorIp}</code></p>}
         <div className="game-invite"><span>While you wait, play a quick game.</span><button onClick={() => setGameOpen(true)}>🎮 <b>Play Code Catcher</b></button></div>
       </section>
 
